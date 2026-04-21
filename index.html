@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mi Portafolio Universitario</title>
+  <script src="https://kit.fontawesome.com/739aed4c6b.js" crossorigin="anonymous"></script>
+  <title>Portafolio Universitario</title>
   <style>
     :root {
-      --bg-color: #f9f9f9;
-      --text-main: #111;
-      --text-muted: #666;
+      --bg-color: #f4f6f8;
+      --text-main: #222;
+      --text-muted: #555;
       --primary-blue: #0056b3;
-      --primary-blue-hover: #004494;
       --border-color: #ddd;
       --font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     }
@@ -28,10 +28,11 @@
     .banner {
       width: 100%;
       height: 250px;
+      background-image: url('/img/1138740.png');
       background-size: cover;
       background-position: center;
       border-bottom: 1px solid var(--border-color);
-      background-color: #ddd; /* Color por si la imagen tarda en cargar */
+      background-color: #ccc;
     }
 
     .container {
@@ -43,7 +44,7 @@
       position: relative;
     }
 
-    /* Columna Izquierda */
+    /* Columna Izquierda (Perfil) */
     .profile-sidebar { width: 300px; flex-shrink: 0; }
 
     .avatar {
@@ -56,101 +57,112 @@
       box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     }
 
-    .profile-name { font-size: 24px; margin: 15px 0 10px; }
+    .profile-name { font-size: 24px; margin: 15px 0 5px; }
 
     .status-badge {
-      display: inline-flex;
-      align-items: center;
-      background-color: #e8f5e9;
-      color: #2e7d32;
-      padding: 5px 12px;
-      border-radius: 20px;
-      font-size: 14px;
-      font-weight: 600;
-      margin-bottom: 20px;
+      display: inline-flex; align-items: center;
+      background-color: #e8f5e9; color: #2e7d32;
+      padding: 5px 12px; border-radius: 20px;
+      font-size: 14px; font-weight: 600; margin-bottom: 20px;
     }
-
     .status-badge::before {
-      content: ''; width: 8px; height: 8px;
-      background-color: #4caf50; border-radius: 50%;
+      content: "\f1c0"; /* icono de base de datos */
+      font-family: "Font Awesome 6 Free";
+      font-weight: 900;
+      color: rgb(46 125 50);
       margin-right: 8px;
     }
 
     .info-list { list-style: none; margin-bottom: 25px; color: var(--text-muted); font-size: 15px; }
-    .info-list li { margin-bottom: 10px; display: flex; align-items: center; }
-    .info-link { color: var(--text-muted); text-decoration: underline; }
+    .info-list li { margin-bottom: 10px; }
 
     .btn {
-      display: block; width: 100%; padding: 10px;
-      text-align: center; border-radius: 20px;
+      display: block; width: 100%; padding: 12px;
+      text-align: center; border-radius: 8px;
       font-size: 16px; font-weight: bold; cursor: pointer;
       margin-bottom: 10px; border: none; transition: 0.2s;
     }
     .btn-primary { background-color: var(--primary-blue); color: white; }
-    .btn-secondary { background-color: transparent; border: 1px solid var(--border-color); color: var(--text-main); }
+
+    /* Botón de Login Resaltado */
+    .btn-login { background-color: var(--primary-blue); color: white; margin-top: 30px; }
+    .btn-login:hover { background-color: #444; }
 
     /* Contenido de Portafolio */
     .portfolio-content { flex-grow: 1; padding-top: 30px; }
-    .tabs { display: flex; border-bottom: 1px solid var(--border-color); margin-bottom: 30px; gap: 30px; }
-    .tab { padding: 10px 0; cursor: pointer; color: var(--text-muted); font-weight: 600; border-bottom: 3px solid transparent; }
-    .tab.active { color: var(--text-main); border-bottom-color: var(--text-main); }
+
+    .tabs { display: flex; border-bottom: 2px solid var(--border-color); margin-bottom: 30px; gap: 30px; }
+    .tab { padding: 10px 0; cursor: pointer; color: var(--text-muted); font-weight: bold; border-bottom: 3px solid transparent; margin-bottom: -2px; }
+    .tab.active { color: var(--primary-blue); border-bottom-color: var(--primary-blue); }
 
     .unit-content { display: none; }
     .unit-content.active { display: block; }
 
-    .weeks-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
-    .week-card { background: white; border-radius: 12px; overflow: hidden; border: 1px solid var(--border-color); }
-    .week-header { padding: 15px; font-weight: bold; border-bottom: 1px solid var(--border-color); background: #fdfdfd; }
+    .weeks-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+    .week-card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05); border: 1px solid var(--border-color); display: flex; flex-direction: column;}
+    .week-header { padding: 15px; font-weight: bold; border-bottom: 1px solid var(--border-color); background: #fff; }
 
-    /* Contenedor de Canva Corregido */
+    /* CONTENEDOR CANVA CORREGIDO - Proporción 16:9 Perfecta */
     .canva-container {
       width: 100%;
-      height: 200px; /* Aumentado para que los PDFs se vean bien */
-      background-color: #f0f0f0;
+      aspect-ratio: 16 / 9; /* Mantiene la forma exacta de la diapositiva */
+      background-color: #f8f9fa;
       display: flex;
       align-items: center; justify-content: center;
-      color: #999; text-align: center;
-      overflow: hidden; /* Evita que el contenido sobresalga */
+      color: #888; text-align: center;
+      position: relative;
+      overflow: hidden;
     }
 
-    /* Fuerza a que cualquier cosa dentro (iframes, divs de canva) ocupe todo el espacio */
-    .canva-container > * {
-      width: 100% !important;
-      height: 100% !important;
-      border: none !important;
-      margin: 0 !important;
-      padding: 0 !important;
+    .canva-container iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
     }
+
+    /* Modales */
+    .modal-overlay {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.7); display: none;
+      align-items: center; justify-content: center; z-index: 1000;
+    }
+    .modal { background: white; padding: 30px; border-radius: 12px; width: 400px; max-height: 90vh; overflow-y: auto; position: relative; }
+    .modal h2 { margin-bottom: 15px; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+    .modal label { display: block; margin: 15px 0 5px; font-size: 14px; font-weight: bold; color: #333; }
+    .modal input, .modal select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-family: inherit; }
+    .close-modal { position: absolute; top: 15px; right: 20px; background: none; border: none; font-size: 24px; cursor: pointer; color: #999; }
+    .close-modal:hover { color: #333; }
 
     @media (max-width: 768px) {
       .container { flex-direction: column; }
-      .profile-sidebar { width: 100%; display: flex; flex-direction: column; align-items: center; text-align: center; }
-      .tabs { flex-wrap: wrap; justify-content: center; }
+      .profile-sidebar { width: 100%; text-align: center; align-items: center; display: flex; flex-direction: column; }
     }
   </style>
 </head>
 <body>
 
-<div class="banner" style="background-image: url('https://i.pinimg.com/1200x/1d/0e/ed/1d0eedea3e7ced1cff1db93e7bb6986f.jpg');"></div>
+<div class="banner" id="mainBanner"></div>
 
 <div class="container">
   <aside class="profile-sidebar">
-    <img src="https://i.pinimg.com/736x/0d/af/79/0daf79ba1549f23b9caf058155a4bd42.jpg" class="avatar" alt="Mi Foto">
+    <img src="/img/perf.jpeg" class="avatar" id="userAvatar" alt="Mi Perfil">
 
-    <h1 class="profile-name">Anderson Chang</h1>
+    <h1 class="profile-name">Chang Campos Anderson</h1>
     <div class="status-badge">Base de datos II</div>
     <ul class="info-list">
-      <li> Estudiante Universitario</li>
-      <li> Carrera de [Ing Sistemas]</li>
-      <li> Huancayo, Peru</li>
+      <li> <i class="fa-solid fa-school" style="color: rgb(0, 82, 179);"></i> Estudiante Universitario</li>
+      <li> <i class="fa-solid fa-computer" style="color: rgb(0, 82, 179);"></i> Ing Sistemas</li>
+      <li> <i class="fa-solid fa-city" style="color: rgb(0, 82, 179);"></i> Huancayo</li>
     </ul>
-    <button class="btn btn-primary"> Seguir</button>
-    <button class="btn btn-secondary">️ Mensaje</button>
+
+    <button class="btn btn-login" onclick="openLoginModal()"> <i class="fa-solid fa-user" style="color: rgb(255 255 255);"></i> Iniciar Sesión</button>
   </aside>
 
   <main class="portfolio-content">
     <div class="tabs">
-      <div class="tab active" onclick="switchTab(1)">Unidad 1</div>
+      <div class="tab active" onclick="switchTab(1)">Unidad 1 </div>
       <div class="tab" onclick="switchTab(2)">Unidad 2</div>
       <div class="tab" onclick="switchTab(3)">Unidad 3</div>
       <div class="tab" onclick="switchTab(4)">Unidad 4</div>
@@ -158,51 +170,200 @@
 
     <div class="unit-content active" id="unit-1">
       <div class="weeks-grid">
-        <div class="week-card">
-          <div class="week-header">Semana 1</div>
-          <div style="position: relative; width: 100%; height: 0; padding-top: 56.3360%;
- padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden;
- border-radius: 8px; will-change: transform;">
-            <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;"
-                    src="https://www.canva.com/design/DAHG_s7V1gY/T4mKDh9_suWJXKWh7tjHhw/view?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
-            </iframe>
-          </div>
-          <a href="https:&#x2F;&#x2F;www.canva.com&#x2F;design&#x2F;DAHG_s7V1gY&#x2F;T4mKDh9_suWJXKWh7tjHhw&#x2F;view?utm_content=DAHG_s7V1gY&amp;utm_campaign=designshare&amp;utm_medium=embeds&amp;utm_source=link" target="_blank" rel="noopener"></a>
-        </div>
-        <div class="week-card">
-          <div class="week-header">Semana 2</div>
-          <div style="position: relative; width: 100%; height: 0; padding-top: 56.2500%;
- padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden;
- border-radius: 8px; will-change: transform;">
-            <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;"
-                    src="https://www.canva.com/design/DAGrf3sMayY/PI2mGceNJ3PIv9RNcuWDkQ/view?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
-            </iframe>
-          </div>
-          <a href="https:&#x2F;&#x2F;www.canva.com&#x2F;design&#x2F;DAGrf3sMayY&#x2F;PI2mGceNJ3PIv9RNcuWDkQ&#x2F;view?utm_content=DAGrf3sMayY&amp;utm_campaign=designshare&amp;utm_medium=embeds&amp;utm_source=link" target="_blank" rel="noopener"></a>
-        </div>
+        <div class="week-card"><div class="week-header">Semana 1</div><div class="canva-container" id="u1-w1">
+
+          <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;"
+                  src="https://www.canva.com/design/DAHG_s7V1gY/T4mKDh9_suWJXKWh7tjHhw/view?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
+          </iframe>
+
+        </div></div>
+        <div class="week-card"><div class="week-header">Semana 2</div><div class="canva-container" id="u1-w2">
+
+          <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;"
+                  src="https://www.canva.com/design/DAGrf3sMayY/PI2mGceNJ3PIv9RNcuWDkQ/view?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
+          </iframe>
+
+        </div></div>
+        <div class="week-card"><div class="week-header">Semana 3</div><div class="canva-container" id="u1-w3">
+
+          <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;"
+                  src="https://www.canva.com/design/DAHHh53-eko/XL5l_2-PejzQHjzN8epejg/view?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
+          </iframe>
+
+        </div></div>
+        <div class="week-card"><div class="week-header">Semana 4</div><div class="canva-container" id="u1-w4">Sin trabajo</div></div>
       </div>
     </div>
 
     <div class="unit-content" id="unit-2">
-      <div class="weeks-grid  .">
-        <div class="week-card">
-          <div class="week-header">Semana 1</div>
-          <div class="canva-container">
-            Sin trabajo publicado
-          </div>
-        </div>
+      <div class="weeks-grid">
+        <div class="week-card"><div class="week-header">Semana 1</div><div class="canva-container" id="u2-w1">hola</div></div>
+        <div class="week-card"><div class="week-header">Semana 2</div><div class="canva-container" id="u2-w2">Sinfsftrabajo</div></div>
+        <div class="week-card"><div class="week-header">Semana 3</div><div class="canva-container" id="u2-w3">Sin trabajo</div></div>
+        <div class="week-card"><div class="week-header">Semana 4</div><div class="canva-container" id="u2-w4">Sin trabajo</div></div>
       </div>
     </div>
 
+    <div class="unit-content" id="unit-3">
+      <div class="weeks-grid">
+        <div class="week-card"><div class="week-header">Semana 1</div><div class="canva-container" id="u3-w1">Sin trabajo</div></div>
+        <div class="week-card"><div class="week-header">Semana 2</div><div class="canva-container" id="u3-w2">Sin trabajo</div></div>
+        <div class="week-card"><div class="week-header">Semana 3</div><div class="canva-container" id="u3-w3">Sin trabajo</div></div>
+        <div class="week-card"><div class="week-header">Semana 4</div><div class="canva-container" id="u3-w4">Sin trabajo</div></div>
+      </div>
+    </div>
+
+    <div class="unit-content" id="unit-4">
+      <div class="weeks-grid">
+        <div class="week-card"><div class="week-header">Semana 1</div><div class="canva-container" id="u4-w1">Sin trabajo</div></div>
+        <div class="week-card"><div class="week-header">Semana 2</div><div class="canva-container" id="u4-w2">Sin trabajo</div></div>
+        <div class="week-card"><div class="week-header">Semana 3</div><div class="canva-container" id="u4-w3">Sin trabajo</div></div>
+        <div class="week-card"><div class="week-header">Semana 4</div><div class="canva-container" id="u4-w4">Sin trabajo</div></div>
+      </div>
+    </div>
   </main>
 </div>
 
+<div class="modal-overlay" id="loginModal">
+  <div class="modal">
+    <button class="close-modal" onclick="closeModals()">&times;</button>
+    <h2>Acceso Requerido</h2>
+    <p style="font-size: 14px; color: #666;">Inicia sesión para poder modificar tu portafolio.</p>
+
+    <label>Usuario</label>
+    <input type="text" id="loginUser" placeholder="">
+
+    <label>Contraseña</label>
+    <input type="password" id="loginPass" placeholder="">
+
+    <button class="btn btn-primary" style="margin-top: 15px;" onclick="verifyLogin()">Ingresar al Sistema</button>
+  </div>
+</div>
+
+<div class="modal-overlay" id="adminModal">
+  <div class="modal">
+    <button class="close-modal" onclick="closeModals()">&times;</button>
+    <h2>Publicar Contenido</h2>
+    <p style="font-size: 13px; color: #d32f2f; margin-bottom: 15px;">Los cambios se guardan localmente en tu navegador.</p>
+
+    <h3 style="font-size: 16px; margin-top: 10px;">Subir trabajo de Canva</h3>
+    <label>Elige la Unidad y Semana:</label>
+    <div style="display: flex; gap: 10px;">
+      <select id="selUnit"><option value="1">Unidad 1 </option><option value="2">Unidad 2</option><option value="3">Unidad 3</option><option value="4">Unidad 4</option></select>
+      <select id="selWeek"><option value="1">Semana 1</option><option value="2">Semana 2</option><option value="3">Semana 3</option><option value="4">Semana 4</option></select>
+    </div>
+
+    <label>Código o Enlace de Canva:</label>
+    <input type="text" id="inputCanva" placeholder="Pega aquí el código que te da Canva">
+    <button class="btn btn-primary" onclick="publishWork()">Guardar Trabajo</button>
+
+    <h3 style="font-size: 16px; margin-top: 25px; border-top: 1px solid #ddd; padding-top: 15px;">Diseño del Perfil</h3>
+    <label>URL del Banner Superior:</label>
+    <input type="text" id="inputBanner" placeholder="Link de tu imagen de fondo">
+    <label>URL de tu Foto (Icono):</label>
+    <input type="text" id="inputAvatar" placeholder="Link de tu foto de perfil">
+    <button class="btn btn-login" onclick="updateDesign()">Actualizar Diseño</button>
+  </div>
+</div>
+
 <script>
+  // Al cargar la página, recuperar los datos guardados
+  window.onload = function() { loadMaintainedData(); };
+
+  // Sistema de Pestañas
   function switchTab(n) {
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
     document.querySelectorAll('.unit-content').forEach(c => c.classList.remove('active'));
     document.querySelectorAll('.tab')[n-1].classList.add('active');
     document.getElementById('unit-'+n).classList.add('active');
+  }
+
+  // Control de Ventanas Modales
+  function openLoginModal() { document.getElementById('loginModal').style.display = 'flex'; }
+  function closeModals() {
+    document.getElementById('loginModal').style.display = 'none';
+    document.getElementById('adminModal').style.display = 'none';
+  }
+
+  // Verificación del Login
+  function verifyLogin() {
+    const user = document.getElementById('loginUser').value;
+    const pass = document.getElementById('loginPass').value;
+
+    if(user === "admin" && pass === "1234") {
+      document.getElementById('loginModal').style.display = 'none';
+      document.getElementById('loginUser').value = '';
+      document.getElementById('loginPass').value = '';
+      document.getElementById('adminModal').style.display = 'flex';
+    } else {
+      alert("Credenciales incorrectas. Usuario: admin / Clave: 1234");
+    }
+  }
+
+  // FUNCIÓN INTELIGENTE PARA PUBLICAR CANVA
+  function publishWork() {
+    const u = document.getElementById('selUnit').value;
+    const w = document.getElementById('selWeek').value;
+    const code = document.getElementById('inputCanva').value;
+
+    // Expresión regular para extraer SOLAMENTE el link "src" de todo el código basura que da Canva
+    const match = code.match(/src=["'](.*?)["']/);
+
+    if(match && match[1]) {
+      const urlLimpia = match[1];
+      const targetBox = document.getElementById(`u${u}-w${w}`);
+
+      // Construimos un iframe totalmente limpio y perfecto para el contenedor
+      targetBox.innerHTML = `<iframe src="${urlLimpia}" allowfullscreen="allowfullscreen" allow="fullscreen"></iframe>`;
+
+      saveAllToMemory(); // Guardar
+      document.getElementById('inputCanva').value = '';
+      alert(`¡Éxito! Trabajo publicado sin franjas negras en la Unidad ${u}, Semana ${w}.`);
+    } else {
+      alert("Error: No se encontró un enlace válido. Por favor, pega el código de inserción correcto de Canva.");
+    }
+  }
+
+  // Función para cambiar Icono y Banner
+  function updateDesign() {
+    const bannerUrl = document.getElementById('inputBanner').value;
+    const avatarUrl = document.getElementById('inputAvatar').value;
+
+    if(bannerUrl) document.getElementById('mainBanner').style.backgroundImage = `url('${bannerUrl}')`;
+    if(avatarUrl) document.getElementById('userAvatar').src = avatarUrl;
+
+    saveAllToMemory(); // Guardar
+    alert("¡Diseño guardado correctamente!");
+  }
+
+  // FUNCIONES DE GUARDADO (Persistencia en el navegador)
+  function saveAllToMemory() {
+    const portafolioData = {
+      banner: document.getElementById('mainBanner').style.backgroundImage,
+      avatar: document.getElementById('userAvatar').src,
+      trabajos: {}
+    };
+
+    document.querySelectorAll('.canva-container').forEach(div => {
+      portafolioData.trabajos[div.id] = div.innerHTML;
+    });
+
+    localStorage.setItem('MemoriaFinalPortafolio', JSON.stringify(portafolioData));
+  }
+
+  function loadMaintainedData() {
+    const memory = localStorage.getItem('MemoriaFinalPortafolio');
+    if(!memory) return;
+
+    const data = JSON.parse(memory);
+
+    if(data.banner) document.getElementById('mainBanner').style.backgroundImage = data.banner;
+    if(data.avatar) document.getElementById('userAvatar').src = data.avatar;
+
+    for(const id in data.trabajos) {
+      const caja = document.getElementById(id);
+      if(caja) caja.innerHTML = data.trabajos[id];
+    }
   }
 </script>
 </body>
