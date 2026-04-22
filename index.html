@@ -139,9 +139,27 @@
       .container { flex-direction: column; }
       .profile-sidebar { width: 100%; text-align: center; align-items: center; display: flex; flex-direction: column; }
     }
+
+    .imagen-flotante {
+      position: fixed; /* Esto hace que la imagen se quede fija en la pantalla */
+      top: 10px; /* Distancia desde la parte inferior de la pantalla */
+      left: 10px; /* Distancia desde la parte derecha de la pantalla */
+      z-index: 1000; /* Asegura que la imagen se superponga a otros elementos */
+      /* Opcional: añade estilos adicionales como ancho, bordes, etc. */
+    }
+
+    .imagen-flotante img {
+      max-width: 72px; /* Limita el ancho de la imagen */
+      height: auto; /* Mantiene la proporción de aspecto */
+    }
+
   </style>
 </head>
 <body>
+
+<div class="imagen-flotante">
+  <img src="img/img.png" alt="Descripción de la imagen">
+</div>
 
 <div class="banner" id="mainBanner"></div>
 
